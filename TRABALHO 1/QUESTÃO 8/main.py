@@ -12,8 +12,8 @@ def main():
 
     busca_gulosa.buscar(problema)
     
-    busca_gulosa.mostra_caminho()
-    
+    busca_gulosa.mostra_caminho(problema)
+
 
     problema = QuebraCabeca.QuebraCabeca([1, 3, 4,
                                           8, 2, 5,
@@ -26,7 +26,7 @@ def main():
 
     busca_gulosa.buscar(problema)
 
-    busca_gulosa.mostra_caminho()
+    busca_gulosa.mostra_caminho(problema)
 
 if __name__ == '__main__':
     main()

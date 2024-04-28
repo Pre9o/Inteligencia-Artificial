@@ -36,7 +36,7 @@ class BuscaGulosa:
             # Ordena a fronteira de acordo com a heurística
             self.fronteira.sort(key=lambda x: problema.heuristica(x[0]))
             
-    def mostraGrafo(self):
+    def mostraGrafo(self, problema):
         # Cria um novo grafo para a solução
         grafo_solucao = nx.DiGraph()
         
@@ -48,10 +48,10 @@ class BuscaGulosa:
             
         # Desenha o grafo da solução
         nx.draw(grafo_solucao, with_labels=True, ax=plt.gca(), node_size=2000, node_color='lightblue', font_size=10, font_weight='bold')
-        plt.savefig("grafo_solucao_gulosa.png")
+        plt.savefig(f"grafo_solucao_gulosa_{problema.funcaoCusto}.png")
         plt.show()
         
-    def mostra_caminho(self):
+    def mostra_caminho(self, problema):
         # Mostra o caminho
         for nome, estado in self.solucao:
             print("Operação: " + str(nome) + " Estado: " + str(estado))
@@ -59,5 +59,5 @@ class BuscaGulosa:
         print(f"Lista de nodos abertos: {self.visitados}\n")
         print(f"Lista de nodos fechados: {self.fronteira}\n")
         
-        self.mostraGrafo()
+        self.mostraGrafo(problema)
         
