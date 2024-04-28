@@ -56,5 +56,8 @@ class BuscaEmLargura:
         for nome, estado in self.solucao:
             print("Operação: " + str(nome) + " Estado: " + str(estado))
             
+        print(f"Lista de nodos abertos: {self.visitados}\n")
+        print(f"Lista de nodos fechados: {self.fronteira}\n")
+            
         self.mostraGrafo()
 
