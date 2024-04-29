@@ -35,11 +35,8 @@ class QuebraCabeca:
         return sucessores
     
     def heuristica(self, estado):
-        return sum([1 if estado[i] != self.objetivo[i] else 0 for i in range(9)])
-    
-    def custo(self, estado, acao):
         if self.funcaoCusto == 1:
             return 1
         
         if self.funcaoCusto == 2:
-            return self.heuristica(estado)
+            return sum([1 if estado[i] != self.objetivo[i] else 0 for i in range(9)])

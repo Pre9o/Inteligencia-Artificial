@@ -1,67 +1,76 @@
-class Node:
-    def __init__(self, value):
-        self.value = value
-        self.children = []
+class Nodo:
+    def __init__(self, valor):
+        self.valor = valor
+        self.filhos = []
 
-def minimax(node, depth, maximizing_player):
-    if depth == 0 or len(node.children) == 0:
-        return node.value
+def minimax(Nodo, profundidade, maximizando_jogador):
+    if profundidade == 0 or len(Nodo.filhos) == 0:
+        return Nodo.valor
     
-    if maximizing_player:
+    if maximizando_jogador:
         max_eval = float('-inf')
-        for child in node.children:
-            eval = minimax(child, depth - 1, False)
+        for filho in Nodo.filhos:
+            eval = minimax(filho, profundidade - 1, False)
             max_eval = max(max_eval, eval)
-        node.value = max_eval
+        Nodo.valor = max_eval
         return max_eval
     else:
         min_eval = float('inf')
-        for child in node.children:
-            eval = minimax(child, depth - 1, True)
+        for filho in Nodo.filhos:
+            eval = minimax(filho, profundidade - 1, True)
             min_eval = min(min_eval, eval)
-        node.value = min_eval
+        Nodo.valor = min_eval
         return min_eval
 
 # Construindo a árvore
-root = Node(0)
+root = Nodo(0)
 
-root.children = [
-    Node(0),
-    Node(0)
+root.filhos = [
+    Nodo(0),
+    Nodo(0)
 ]
 
-for i, child in enumerate(root.children):
-    child.children = [
-        Node(0),
-        Node(0)
+contador = 0
+
+for i, filho in enumerate(root.filhos):
+    filho.filhos = [
+        Nodo(0),
+        Nodo(0)
     ]
 
-    for j, grandchild in enumerate(child.children):
-        grandchild.children = [
-            Node(0),
-            Node(0)
+    for j, neto in enumerate(filho.filhos):
+        neto.filhos = [
+            Nodo(0),
+            Nodo(0)
         ]
 
-    for j, grandgrandchild in enumerate(grandchild.children):
-        grandchild.value = [20, 33, -45, 31, 24, 25, -10, 20, 40, -25, 18, -42, 24, -19, 36, -41][i * 2 + j]
+        for k, bisneto in enumerate(neto.filhos):
+            bisneto.filhos = [
+                Nodo(0),
+                Nodo(0)
+            ]
+
+            for l, tataraneto in enumerate(bisneto.filhos):
+                tataraneto.valor = [20, 33, -45, 31, 24, 25, -10, 20, 40, -25, 18, -42, 24, -19, 36, -41][contador]
+                contador += 1
 
 # Aplicando o algoritmo Minimax alternando os jogadores
-def alternate_minimax(node, depth):
-    if depth % 2 == 0:
-        minimax(node, depth, False)  # Maximizando
+def alternar_minimax(Nodo, profundidade):
+    if profundidade % 2 == 0:
+        minimax(Nodo, profundidade, False)  # Maximizando
     else:
-        minimax(node, depth, True)   # Minimizando
+        minimax(Nodo, profundidade, True)   # Minimizando
 
 # Aplicando o algoritmo Minimax alternando os jogadores
-alternate_minimax(root, 5)
+alternar_minimax(root, 5)
 
 # Função para imprimir a árvore
-def print_tree(node, depth=0):
-    if node:
-        print(" " * depth, node.value)
-        for child in node.children:
-            print_tree(child, depth + 2)
+def print_arvore(Nodo, profundidade=0):
+    if Nodo:
+        print(" " * profundidade, Nodo.valor)
+        for filho in Nodo.filhos:
+            print_arvore(filho, profundidade + 2)
 
 # Imprimindo a árvore preenchida
 print("Árvore preenchida:")
-print_tree(root)
+print_arvore(root)
