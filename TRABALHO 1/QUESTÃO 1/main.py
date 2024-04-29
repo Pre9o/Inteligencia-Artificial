@@ -5,7 +5,7 @@ def main():
     """
     Função principal que executa a busca em largura para o problema dos Missionários e Canibais.
     """
-    # Inicializa o problema dos Missionários e Canibais com 3 missionários, 3 canibais, 1 barco e 2 canibais na margem oposta.
+    # Inicializa o problema dos Missionários e Canibais com 3 missionários, 3 canibais, 1 barco e tamanho do barco 2
     problema = MissionariosCanibais.MissionariosCanibais(3, 3, 1, 2)
     
     # Inicializa a busca em largura
