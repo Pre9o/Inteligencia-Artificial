@@ -22,14 +22,16 @@ def minimax(Nodo, profundidade, maximizando_jogador):
         Nodo.valor = min_eval
         return min_eval
     
-def poda_alpha_beta(Nodo, profundidade, alpha, beta, maximizando_jogador):
+def poda_alpha_beta(Nodo, profundidade, alpha, beta, maximizando_jogador, lado):
     if profundidade == 0 or len(Nodo.filhos) == 0:
         return Nodo.valor
     
+    filhos = Nodo.filhos if lado == 'esquerda' else Nodo.filhos[::-1]
+    
     if maximizando_jogador:
         max_eval = float('-inf')
-        for filho in Nodo.filhos:
-            eval = poda_alpha_beta(filho, profundidade - 1, alpha, beta, False)
+        for filho in filhos:
+            eval = poda_alpha_beta(filho, profundidade - 1, alpha, beta, False, lado)
             max_eval = max(max_eval, eval)
             alpha = max(alpha, eval)
             if beta <= alpha:
@@ -38,8 +40,8 @@ def poda_alpha_beta(Nodo, profundidade, alpha, beta, maximizando_jogador):
         return max_eval
     else:
         min_eval = float('inf')
-        for filho in Nodo.filhos:
-            eval = poda_alpha_beta(filho, profundidade - 1, alpha, beta, True)
+        for filho in filhos:
+            eval = poda_alpha_beta(filho, profundidade - 1, alpha, beta, True, lado)
             min_eval = min(min_eval, eval)
             beta = min(beta, eval)
             if beta <= alpha:
@@ -107,8 +109,16 @@ print_arvore(root)
 
 root = arvore_preenchida()
 
-poda_alpha_beta(root, 5, float('-inf'), float('inf'), True)
+poda_alpha_beta(root, 5, float('-inf'), float('inf'), True, 'esquerda')
 
 # Imprimindo a árvore preenchida
-print("Árvore preenchida Poda AlphaBeta:")
+print("Árvore preenchida Poda AlphaBeta esquerda:")
+print_arvore(root)
+
+root = arvore_preenchida()
+
+poda_alpha_beta(root, 5, float('-inf'), float('inf'), True, 'direita')
+
+# Imprimindo a árvore preenchida
+print("Árvore preenchida Poda AlphaBeta direita:")
 print_arvore(root)
