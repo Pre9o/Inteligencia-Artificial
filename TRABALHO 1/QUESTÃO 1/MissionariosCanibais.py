@@ -1,18 +1,55 @@
 class MissionariosCanibais():
+    """
+    Implementação do problema dos Missionários e Canibais.
+    """
+
     def __init__(self, missionarios, canibais, lado, tamanho_barco):
-        self.missionarios = missionarios
-        self.canibais = canibais
-        self.lado = lado
-        self.objetivo = (0, 0, 0)
-        self.tamanho_barco = tamanho_barco
+        """
+        Inicializa o problema dos Missionários e Canibais.
+
+        Args:
+            missionarios: O número inicial de missionários.
+            canibais: O número inicial de canibais.
+            lado: O lado onde está o barco (0 para esquerda, 1 para direita).
+            tamanho_barco: O tamanho máximo do barco.
+        """
+        self.missionarios = missionarios      # Número de missionários
+        self.canibais = canibais              # Número de canibais
+        self.lado = lado                      # Lado do rio onde está o barco
+        self.objetivo = (0, 0, 0)             # Estado objetivo
+        self.tamanho_barco = tamanho_barco    # Tamanho máximo do barco
         
     def estadoInicial(self):
+        """
+        Retorna o estado inicial do problema.
+
+        Returns:
+            O estado inicial do problema.
+        """
         return (self.missionarios, self.canibais, self.lado)
     
     def testeObjetivo(self, estado):
+        """
+        Verifica se o estado é o estado objetivo.
+
+        Args:
+            estado: O estado a ser verificado.
+
+        Returns:
+            True se o estado for o objetivo, False caso contrário.
+        """
         return estado == self.objetivo
     
     def funcaoSucessora(self, estado):
+        """
+        Gera os sucessores do estado dado.
+
+        Args:
+            estado: O estado atual.
+
+        Returns:
+            Uma lista de estados sucessores válidos.
+        """
         sucessores = []
         
         if estado[2] == 1:
@@ -36,8 +73,16 @@ class MissionariosCanibais():
         
         return sucessores
     
-    
     def validaEstado(self, estado):
+        """
+        Valida se o estado é válido.
+
+        Args:
+            estado: O estado a ser validado.
+
+        Returns:
+            True se o estado for válido, False caso contrário.
+        """
         # Verifica se o estado é válido
         if estado[0] < 0 or estado[1] < 0 or estado[0] > self.missionarios or estado[1] > self.canibais:
             return False
@@ -49,4 +94,3 @@ class MissionariosCanibais():
             return False
         
         return True 
-        

@@ -1,19 +1,53 @@
 class Fazendeiro:
+    """
+    Implementação do problema do Fazendeiro, Lobo, Ovelha e Repolho.
+    """
+
     def __init__(self, estado):
-        # Estado é uma lista da forma ['e', 'e', 'e', 'e'], onde cada elemento representa a posição do fazendeiro, lobo, ovelha e repolho, respectivamente
-        self.estado = estado
-        self.tamanho_barco = 1
-        self.objetivo = ['d', 'd', 'd', 'd']
-        self.lado = 'e'
+        """
+        Inicializa o problema do Fazendeiro.
+
+        Args:
+            estado: Uma lista da forma ['e', 'e', 'e', 'e'], onde cada elemento representa a posição
+                    do fazendeiro, lobo, ovelha e repolho, respectivamente.
+        """
+        self.estado = estado              # Estado atual
+        self.tamanho_barco = 1           # Capacidade do barco
+        self.objetivo = ['d', 'd', 'd', 'd']  # Estado objetivo, todos na margem direita
+        self.lado = 'e'                  # Lado inicial do fazendeiro
 
     def estadoInicial(self):
+        """
+        Retorna o estado inicial do problema.
+
+        Returns:
+            O estado inicial do problema.
+        """
         return ('Início', 'e', 'e', 'e', 'e')
 
     def testeObjetivo(self, estado):
+        """
+        Verifica se o estado é o estado objetivo.
+
+        Args:
+            estado: O estado a ser verificado.
+
+        Returns:
+            True se o estado for o objetivo, False caso contrário.
+        """
         # O objetivo é ter todos na margem direita
         return estado == self.objetivo
 
     def funcaoSucessora(self, estado):
+        """
+        Gera os sucessores do estado dado.
+
+        Args:
+            estado: O estado atual.
+
+        Returns:
+            Uma lista de estados sucessores válidos.
+        """
         sucessores = []
         
         if estado[0] == 'e':
@@ -57,9 +91,17 @@ class Fazendeiro:
         return sucessores
 
     def validaEstado(self, estado):
+        """
+        Valida se o estado é válido.
+
+        Args:
+            estado: O estado a ser validado.
+
+        Returns:
+            True se o estado for válido, False caso contrário.
+        """
         # O lobo não pode ficar sozinho com a ovelha, e a ovelha não pode ficar sozinha com o repolho
         if (estado[1] == estado[2] and estado[0] != estado[1]) or (estado[2] == estado[3] and estado[0] != estado[2]):
             return False
-        
         
         return True

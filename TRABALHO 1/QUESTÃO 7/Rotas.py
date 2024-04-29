@@ -1,4 +1,26 @@
 class Rotas:
+    """
+    Classe que representa um conjunto de rotas entre cidades.
+
+    Args:
+        origem (str): A cidade de origem.
+        destino (str): A cidade de destino.
+
+    Attributes:
+        rotas (list): Uma lista de tuplas contendo as rotas disponíveis, cada uma representada por uma tupla no formato (origem, destino, custo).
+        origem (str): A cidade de origem.
+        destino (str): A cidade de destino.
+
+    Methods:
+        estadoInicial(): Retorna o estado inicial, que é a cidade de origem.
+        testeObjetivo(estado): Verifica se o estado atual é o estado objetivo, ou seja, a cidade de destino.
+        funcaoSucessora(estado): Retorna uma lista de ações possíveis a partir do estado atual.
+        custo(estado, acao): Retorna o custo associado a uma determinada ação a partir do estado atual.
+        validaEstado(estado): Verifica se um estado é válido, ou seja, se está presente nas rotas.
+        heuristica(estado): Retorna o valor da heurística para um determinado estado.
+
+    """
+
     def __init__(self, origem, destino):
         self.rotas = [
             ('a', 'b', 7),

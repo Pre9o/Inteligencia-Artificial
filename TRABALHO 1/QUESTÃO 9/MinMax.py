@@ -1,9 +1,29 @@
 class Nodo:
+    """
+    Classe que representa um nó em uma árvore.
+
+    Atributos:
+    - valor: O valor armazenado no nó.
+    - filhos: Uma lista de nós filhos.
+    """
+
     def __init__(self, valor):
         self.valor = valor
         self.filhos = []
 
 def minimax(Nodo, profundidade, maximizando_jogador):
+    """
+    Implementa o algoritmo Minimax para encontrar a melhor jogada em um jogo de dois jogadores.
+
+    Parâmetros:
+    - Nodo: O nó atual do jogo.
+    - profundidade: A profundidade atual da busca.
+    - maximizando_jogador: Um valor booleano indicando se é a vez do jogador maximizador.
+
+    Retorna:
+    - O valor da jogada ótima para o jogador atual.
+
+    """
     if profundidade == 0 or len(Nodo.filhos) == 0:
         return Nodo.valor
     
@@ -23,6 +43,20 @@ def minimax(Nodo, profundidade, maximizando_jogador):
         return min_eval
     
 def poda_alpha_beta(Nodo, profundidade, alpha, beta, maximizando_jogador, lado):
+    """
+    Realiza a poda alfa-beta em uma árvore de jogo.
+
+    Args:
+        Nodo (objeto): O nó atual da árvore.
+        profundidade (int): A profundidade atual na árvore.
+        alpha (float): O valor do alpha.
+        beta (float): O valor do beta.
+        maximizando_jogador (bool): Indica se é o turno do jogador maximizador.
+        lado (str): O lado da árvore a ser percorrido ('esquerda' ou 'direita').
+
+    Returns:
+        float: O valor do nó após a poda alfa-beta.
+    """
     if profundidade == 0 or len(Nodo.filhos) == 0:
         return Nodo.valor
     
@@ -52,6 +86,16 @@ def poda_alpha_beta(Nodo, profundidade, alpha, beta, maximizando_jogador, lado):
         return min_eval
     
 def arvore_preenchida():
+    """
+    Constrói e retorna uma árvore preenchida com valores específicos.
+
+    A árvore é construída com base em um padrão de filhos e netos, onde cada nó
+    contém um valor específico. Os valores são definidos a partir de uma lista
+    predefinida.
+
+    Returns:
+        Nodo: A raiz da árvore preenchida.
+    """
     # Construindo a árvore
     raiz = Nodo(0)
 
@@ -88,6 +132,16 @@ def arvore_preenchida():
 
 # Aplicando o algoritmo Minimax alternando os jogadores
 def alternar_minimax(Nodo, profundidade):
+    """
+    Alterna entre maximização e minimização do algoritmo minimax.
+
+    Parâmetros:
+    - Nodo: O nó atual do jogo.
+    - profundidade: A profundidade atual na árvore de busca.
+
+    Retorna:
+    Nenhum valor de retorno.
+    """
     if profundidade % 2 == 0:
         minimax(Nodo, profundidade, False)  # Maximizando
     else:
@@ -95,6 +149,16 @@ def alternar_minimax(Nodo, profundidade):
 
 # Função para imprimir a árvore
 def print_arvore(Nodo, profundidade=0):
+    """
+    Imprime a árvore representada pelo nó fornecido.
+
+    Args:
+        Nodo: O nó raiz da árvore.
+        profundidade (opcional): A profundidade atual na árvore (padrão é 0).
+
+    Returns:
+        None
+    """
     if Nodo:
         print(" " * profundidade, Nodo.valor)
         for filho in Nodo.filhos:

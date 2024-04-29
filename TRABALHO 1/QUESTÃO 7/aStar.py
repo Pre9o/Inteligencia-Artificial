@@ -3,11 +3,25 @@ import matplotlib.pyplot as plt
 
 class aStar:
     def __init__(self):
+        """
+        Inicializa a busca A*.
+
+        Atributos:
+            solucao (list): Representa o caminho da solução.
+            fronteira (list): Representa os estados na fronteira de busca.
+            visitados (list): Representa os estados já visitados durante a busca.
+        """
         self.solucao = None
         self.fronteira = []
         self.visitados = []
 
     def buscar(self, problema):
+        """
+        Realiza a busca A* para encontrar a solução do problema.
+
+        :param problema: O problema a ser resolvido.
+        :type problema: Problema
+        """
         # Adiciona o estado inicial na fronteira
         estado_inicial = problema.estadoInicial()
         self.fronteira.append((estado_inicial, [(None, estado_inicial)], 0))
@@ -37,6 +51,9 @@ class aStar:
             self.fronteira.sort(key=lambda x: problema.heuristica(x[0]) + x[2])
 
     def mostraGrafo(self):
+        """
+        Desenha e exibe o grafo da solução.
+        """
         # Cria um novo grafo para a solução
         grafo_solucao = nx.DiGraph()
         
@@ -52,6 +69,9 @@ class aStar:
         plt.show()
 
     def mostra_caminho(self):
+        """
+        Exibe o caminho da solução e outras informações relevantes.
+        """
         # Mostra o caminho
         for nome, estado in self.solucao:
             print("Operação: " + str(nome) + " Estado: " + str(estado))
@@ -60,5 +80,3 @@ class aStar:
         print(f"Lista de nodos fechados: {self.fronteira}\n")
 
         self.mostraGrafo()
-
-        

@@ -3,11 +3,25 @@ import matplotlib.pyplot as plt
 
 class BuscaGulosa:
     def __init__(self):
+        """
+        Inicializa a classe BuscaGulosa.
+
+        Atributos:
+        - solucao: lista contendo o caminho da solução encontrado
+        - fronteira: lista de estados a serem explorados
+        - visitados: lista de estados já visitados
+        """
         self.solucao = None
         self.fronteira = []
         self.visitados = []
 
     def buscar(self, problema):
+        """
+        Realiza a busca gulosa para encontrar a solução do problema.
+
+        Parâmetros:
+        - problema: objeto da classe que representa o problema a ser resolvido
+        """
         # Adiciona o estado inicial na fronteira
         estado_inicial = problema.estadoInicial()
         self.fronteira.append((estado_inicial, [(None, estado_inicial)]))
@@ -37,6 +51,12 @@ class BuscaGulosa:
             self.fronteira.sort(key=lambda x: problema.heuristica(x[0]))
             
     def mostraGrafo(self, problema):
+        """
+        Mostra o grafo da solução encontrada.
+
+        Parâmetros:
+        - problema: objeto da classe que representa o problema a ser resolvido
+        """
         # Cria um novo grafo para a solução
         grafo_solucao = nx.DiGraph()
         
@@ -52,6 +72,12 @@ class BuscaGulosa:
         plt.show()
         
     def mostra_caminho(self, problema):
+        """
+        Mostra o caminho da solução encontrada.
+
+        Parâmetros:
+        - problema: objeto da classe que representa o problema a ser resolvido
+        """
         # Mostra o caminho
         for nome, estado in self.solucao:
             print("Operação: " + str(nome) + " Estado: " + str(estado))
