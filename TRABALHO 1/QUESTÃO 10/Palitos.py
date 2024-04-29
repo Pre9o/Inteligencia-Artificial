@@ -1,65 +1,65 @@
-class Node:
-    def __init__(self, palitos_restantes, is_max_turn):
+class Nodo:
+    def __init__(self, palitos_restantes, maximizando_jogador):
         self.palitos_restantes = palitos_restantes
-        self.is_max_turn = is_max_turn
-        self.value = 0
-        self.children = []
+        self.maximizando_jogador = maximizando_jogador
+        self.valor = 0
+        self.filhos = []
 
         if palitos_restantes > 0:
             for i in range(1, min(4, palitos_restantes + 1)):
-                self.children.append(Node(palitos_restantes - i, not is_max_turn))
+                self.filhos.append(Nodo(palitos_restantes - i, not maximizando_jogador))
 
-def minimax(node, depth, alpha, beta, usar_poda, direction):
-    if depth == 0 or len(node.children) == 0:
-        return 1 if node.is_max_turn else -1
+def minimax(Nodo, profundidade, alpha, beta, usar_poda, direcao):
+    if profundidade == 0 or len(Nodo.filhos) == 0:
+        return 1 if Nodo.maximizando_jogador else -1
 
-    children = node.children if direction == 'left' else reversed(node.children)
+    filhos = Nodo.filhos if direcao == 'left' else reversed(Nodo.filhos)
 
-    if node.is_max_turn:
+    if Nodo.maximizando_jogador:
         max_eval = float('-inf')
-        for child in children:
-            eval = minimax(child, depth - 1, alpha, beta, usar_poda, direction)
+        for filho in filhos:
+            eval = minimax(filho, profundidade - 1, alpha, beta, usar_poda, direcao)
             max_eval = max(max_eval, eval)
             if usar_poda:
                 alpha = max(alpha, eval)
                 if beta <= alpha:
-                    print("Poda alfa-beta na profundidade", depth)
+                    print("Poda alfa-beta na profundidade", profundidade)
                     break
-        node.value = max_eval
+        Nodo.valor = max_eval
         return max_eval
     else:
         min_eval = float('inf')
-        for child in children:
-            eval = minimax(child, depth - 1, alpha, beta, usar_poda, direction)
+        for filho in filhos:
+            eval = minimax(filho, profundidade - 1, alpha, beta, usar_poda, direcao)
             min_eval = min(min_eval, eval)
             if usar_poda:
                 beta = min(beta, eval)
                 if beta <= alpha:
-                    print("Poda alfa-beta na profundidade", depth)
+                    print("Poda alfa-beta na profundidade", profundidade)
                     break
-        node.value = min_eval
+        Nodo.valor = min_eval
         return min_eval
     
 def print_arvore(Nodo, profundidade=0):
     if Nodo:
-        print("      " * profundidade, "Palitos restantes:", Nodo.palitos_restantes, "Valor:", Nodo.value)
-        for filho in Nodo.children:
+        print("      " * profundidade, "Palitos restantes:", Nodo.palitos_restantes, "Valor:", Nodo.valor)
+        for filho in Nodo.filhos:
             print_arvore(filho, profundidade + 2)
 
-root = Node(5, True)
-minimax(root, 5, float('-inf'), float('inf'), False, 'left')
+raiz = Nodo(5, True)
+minimax(raiz, 5, float('-inf'), float('inf'), False, 'left')
 
-print("O valor do jogo é:", root.value)
-print_arvore(root)
+print("O valor do jogo é:", raiz.valor)
+print_arvore(raiz)
 
-root = Node(5, True)
-minimax(root, 5, float('-inf'), float('inf'), True, 'left')
+raiz = Nodo(5, True)
+minimax(raiz, 5, float('-inf'), float('inf'), True, 'left')
 
-print("O valor do jogo com a poda executada a partir da esquerda é:", root.value)
-print_arvore(root)
+print("O valor do jogo com a poda executada a partir da esquerda é:", raiz.valor)
+print_arvore(raiz)
 
-root = Node(5, True)
-minimax(root, 5, float('-inf'), float('inf'), True, 'right')
+raiz = Nodo(5, True)
+minimax(raiz, 5, float('-inf'), float('inf'), True, 'right')
 
-print("O valor do jogo com a poda executada a partir da direita é:", root.value)
-print_arvore(root)
+print("O valor do jogo com a poda executada a partir da direita é:", raiz.valor)
+print_arvore(raiz)

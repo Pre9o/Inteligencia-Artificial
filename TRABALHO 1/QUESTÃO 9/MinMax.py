@@ -35,6 +35,7 @@ def poda_alpha_beta(Nodo, profundidade, alpha, beta, maximizando_jogador, lado):
             max_eval = max(max_eval, eval)
             alpha = max(alpha, eval)
             if beta <= alpha:
+                print("Poda alfa-beta na profundidade", profundidade)
                 break
         Nodo.valor = max_eval
         return max_eval
@@ -45,22 +46,23 @@ def poda_alpha_beta(Nodo, profundidade, alpha, beta, maximizando_jogador, lado):
             min_eval = min(min_eval, eval)
             beta = min(beta, eval)
             if beta <= alpha:
+                print("Poda alfa-beta na profundidade", profundidade)
                 break
         Nodo.valor = min_eval
         return min_eval
     
 def arvore_preenchida():
     # Construindo a árvore
-    root = Nodo(0)
+    raiz = Nodo(0)
 
-    root.filhos = [
+    raiz.filhos = [
         Nodo(0),
         Nodo(0)
     ]
 
     contador = 0
 
-    for i, filho in enumerate(root.filhos):
+    for i, filho in enumerate(raiz.filhos):
         filho.filhos = [
             Nodo(0),
             Nodo(0)
@@ -82,7 +84,7 @@ def arvore_preenchida():
                     tataraneto.valor = [20, 33, -45, 31, 24, 25, -10, 20, 40, -25, 18, -42, 24, -19, 36, -41][contador]
                     contador += 1
 
-    return root
+    return raiz
 
 # Aplicando o algoritmo Minimax alternando os jogadores
 def alternar_minimax(Nodo, profundidade):
@@ -98,27 +100,27 @@ def print_arvore(Nodo, profundidade=0):
         for filho in Nodo.filhos:
             print_arvore(filho, profundidade + 2)
 
-root = arvore_preenchida()
+raiz = arvore_preenchida()
 
 # Aplicando o algoritmo Minimax alternando os jogadores
-alternar_minimax(root, 5)
+alternar_minimax(raiz, 5)
 
 # Imprimindo a árvore preenchida
 print("Árvore preenchida MiniMax:")
-print_arvore(root)
+print_arvore(raiz)
 
-root = arvore_preenchida()
+raiz = arvore_preenchida()
 
-poda_alpha_beta(root, 5, float('-inf'), float('inf'), True, 'esquerda')
+poda_alpha_beta(raiz, 5, float('-inf'), float('inf'), True, 'esquerda')
 
 # Imprimindo a árvore preenchida
 print("Árvore preenchida Poda AlphaBeta esquerda:")
-print_arvore(root)
+print_arvore(raiz)
 
-root = arvore_preenchida()
+raiz = arvore_preenchida()
 
-poda_alpha_beta(root, 5, float('-inf'), float('inf'), True, 'direita')
+poda_alpha_beta(raiz, 5, float('-inf'), float('inf'), True, 'direita')
 
 # Imprimindo a árvore preenchida
 print("Árvore preenchida Poda AlphaBeta direita:")
-print_arvore(root)
+print_arvore(raiz)
